@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.one.dao.EChartsMapper">
+    <select id="selectCA"  resultType="com.one.model.Compact">
+       select sale_person,SUM(contract_amount)as contract_amount from compact GROUP BY sale_person
+    </select>
+
+    <select id="selectRS"  resultType="com.one.model.Compact">
+      select sale_person,SUM(recovered_amount_2015) as recovered_amount_2015,
+      SUM(recovered_amount_2016) as recovered_amount_2016,
+      SUM(recovered_amount_2017) as recovered_amount_2017,
+      SUM(recovered_amount_2018) as recovered_amount_2018,
+      SUM(receivable_total) as receivable_total
+      from compact
+      GROUP BY sale_person
+    </select>
+</mapper>

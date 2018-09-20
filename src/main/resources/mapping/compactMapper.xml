@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.one.dao.CompactMapper">
+    <insert id="insert" parameterType="java.util.List">
+        insert into compact(contract_sign_year, item_coding, sale_person, project_name,
+        contract_amount, invoice_amount_2015, recovered_amount_2015, invoice_amount_2016,
+        recovered_amount_date_2016, recovered_amount_2016, invoice_amount_2017,
+        recovered_amount_date_2017, recovered_amount_2017, invoice_amount_2018,
+        invoice_amount_date_2018, recovered_amount_2018,recovered_amount_date_2018, due, invoice_amount,
+        unbilled_amount, receivable_total)
+        VALUES
+        (#{contractSignYear},#{itemCoding},#{salePerson},#{projectName},#{contractAmount},
+        #{invoiceAmount2015},#{recoveredAmount2015},#{invoiceAmount2016},
+        #{recoveredAmountDate2016},#{recoveredAmount2016},#{invoiceAmount2017},
+        #{recoveredAmountDate2017},#{recoveredAmount2017},
+        #{invoiceAmount2018},#{invoiceAmountDate2018},#{recoveredAmount2018},#{recoveredAmountDate2018},#{due},
+        #{invoiceAmount},#{unbilledAmount},#{receivableTotal})
+    </insert>
+
+    <select id="findList" resultType="com.one.model.Compact">
+        SELECT
+        *
+        FROM compact
+        WHERE id !=""
+        <if test="contractSignYear != null and contractSignYear !=''">
+            AND contract_sign_year LIKE
+            CONCAT('%', #{contractSignYear}, '%')
+        </if>
+        <if test="itemCoding != null and itemCoding !=''">
+            AND item_coding LIKE
+            CONCAT('%', #{itemCoding}, '%')
+        </if>
+        <if test="salePerson != null and salePerson !=''">
+            AND sale_person LIKE
+            CONCAT('%', #{salePerson}, '%')
+        </if>
+        ORDER BY contract_sign_year DESC
+    </select>
+
+    <delete id="delete">
+        DELETE FROM compact WHERE id = #{id}
+    </delete>
+
+
+
+
+</mapper>
