@@ -36,7 +36,7 @@ public class CompactController {
     @RequestMapping(value="/imExcel")
     public String imExcel(){
         System.out.println("上传页面。");
-        return "excel/imExcel";
+        return "/excel/imExcel";
     }
 
     /**
@@ -46,7 +46,7 @@ public class CompactController {
     @RequestMapping(value="/compact")
     public String compact(){
         System.out.println("合同详情页面。");
-        return "excel/compact";
+        return "/excel/compact";
     }
 
     /**
@@ -68,7 +68,7 @@ public class CompactController {
         if(file==null){
             Msg ="文件是为空！";
             request.getSession().setAttribute("msg",Msg);
-            return "excel/imExcel";
+            return "/excel/imExcel";
         }
 
         //获取文件名
@@ -79,7 +79,7 @@ public class CompactController {
         if(name==null || ("").equals(name) && size==0 && !VerifyExcelVersionUtil.validateExcel(name)){
             Msg ="文件格式不正确！请使用.xls或.xlsx后缀文档。";
             request.getSession().setAttribute("msg",Msg);
-            return "excel/imExcel";
+            return "/excel/imExcel";
         }
 
         //创建处理EXCEL
@@ -104,7 +104,7 @@ public class CompactController {
             Msg ="批量导入EXCEL失败！";
             request.getSession().setAttribute("msg",Msg);
         }
-        return "excel/imExcel";
+        return "/excel/imExcel";
     }
 
 
@@ -122,7 +122,7 @@ public class CompactController {
         model.addAttribute("compactList",compactList);
         //Page<Compact> pageList = compactService.findPage(new Page<Compact>(request, response), compact);
         //model.addAttribute("pageList", pageList);
-        return "excel/compact";
+        return "/excel/compact";
     }
     
 
@@ -149,6 +149,6 @@ public class CompactController {
     public String delete(Compact compact, RedirectAttributes redirectAttributes) {
         compactService.delete(compact);
         deleteMessage(redirectAttributes, "删除值班信息成功");
-        return "redirect:/excel/compact";
+        return "redirect:/excel/List";
     }
 }

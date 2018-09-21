@@ -16,17 +16,31 @@
 <head>
     <base href="<%=basePath%>">
     <title>回款情况图表</title>
+    <!-- Bootstrap3.3.7 核心 CSS 文件 -->
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/static/js/html5shiv.min.js"/>
+    <script type="text/javascript" src="/static/js/respond.min.js"/>
+    <![endif]-->
     <!-- jquery 核心 JS 文件 -->
     <script type="text/javascript" src="/static/jquery/jquery-1.12.4.min.js"></script>
     <!-- ECharts 核心 JS 文件 -->
     <script type="text/javascript" src="/static/echarts/echarts.js"></script>
 </head>
 <body>
+
+<ul class="nav nav-tabs">
+    <li><a href="/excel/imExcel">上传</a></li>
+    <li><a href="/excel/List">合同列表</a></li>
+    <li><a href="/excel/checkCA">合同总金额</a></li>
+    <li class="active"><a href="/excel/checkRS">回款详情</a></li>
+</ul>
+
+
 <!-- 显示Echarts图表 -->
 <div style="height:400px;min-height:100px;margin:0 auto;" id="RS"></div>
-<div style="margin-top:8px;">
-    &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" onclick="window.location.href='/excel/List'" value="返回合同情况表">
-</div>
+
 <script type="text/javascript">
     $(function() {
         //初始化echarts实例
@@ -78,7 +92,7 @@
                 {
                     type: 'slider',	    //支持鼠标滚轮缩放
                     start: 0,			//默认数据初始缩放范围为10%到90%
-                    end: 10,
+                    end: 100,
                     handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
                     handleSize: '80%',
                     show:true
@@ -86,7 +100,7 @@
                 {
                     type: 'inside',	    //支持单独的滑动条缩放
                     start: 0,			//默认数据初始缩放范围为10%到90%
-                    end: 10,
+                    end: 100,
                 }
             ],
 
@@ -258,6 +272,7 @@
     });
 </script>
 
-
+<!-- Bootstrap3.3.7 核心 JavaScript 文件 -->
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -18,8 +18,36 @@
 <head>
     <title>上传表格</title>
 
+    <!-- Bootstrap3.3.7 核心 CSS 文件 -->
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/static/js/html5shiv.min.js"/>
+    <script type="text/javascript" src="/static/js/respond.min.js"/>
+    <![endif]-->
     <%-- jquery 核心 JS 文件 --%>
     <script type="text/javascript" src="/static/jquery/jquery-1.12.4.min.js"></script>
+
+    <style type="text/css">
+        ul
+        {
+            list-style: none;
+            height: 42px;
+            position: relative;
+        }
+        ul li
+        {
+            float: left;
+        }
+        .outdiv
+        {
+            float: right;
+            position: relative;
+            top: 50%;
+            margin-top: -18px;
+        }
+    </style>
+
 
     <script type="text/javascript">
         function check() {
@@ -44,23 +72,33 @@
     </script>
 </head>
 <body>
-<div>
-    <font color="bule">导入合同</font>
-</div>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="/excel/imExcel">上传</a></li>
+    <li><a href="/excel/List">合同列表</a></li>
+    <li><a href="/excel/checkCA">合同总金额</a></li>
+    <li><a href="/excel/checkRS">回款详情</a></li>
+    <div class="outdiv">
+        <form action="/user/outLogin">
+            <input class="btn btn-large btn-primary" type="submit" value="退出登录" />&nbsp;&nbsp;
+        </form>
+    </div>
+</ul>
+
 
     <form action="/excel/uploadExcel" method="post" enctype="multipart/form-data" onsubmit="return check();">
         <div style="margin: 30px;">
             <input id="excel_file" type="file" name="filename" accept="xlsx" size="80"/>
+            <br/>
             <input id="excel_button" type="submit" value="导入Excel"/>
         </div>
         <font id="importMsg" color="red"><%=importMsg%></font>
         <input type="hidden"/>
     </form>
 
-<br/>
 
-<div>
-    &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" onclick="window.location.href='/excel/List'" value="查看合同情况表">
-</div>
+
+<!-- Bootstrap3.3.7 核心 JavaScript 文件 -->
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 </html>

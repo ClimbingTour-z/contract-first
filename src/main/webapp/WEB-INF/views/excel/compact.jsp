@@ -29,29 +29,21 @@
 
 </head>
 <body>
+<ul class="nav nav-tabs">
+    <li><a href="/excel/imExcel">上传</a></li>
+    <li class="active"><a href="/excel/List">合同列表</a></li>
+    <li><a href="/excel/checkCA">合同总金额</a></li>
+    <li><a href="/excel/checkRS">回款详情</a></li>
+</ul>
 
-    <div style="margin-top:8px;">
-        &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" onclick="window.location.href='/excel/checkCA'" value="查看合同总金额">
-    </div>
-
-    <div style="margin-top:8px;">
-        &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" onclick="window.location.href='/excel/checkRS'" value="查看合同回款情况">
-    </div>
-
-    <div style="margin-top:8px;">
-        &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" onclick="window.location.href='/excel/imExcel'" value="继续上传Excel表">
-    </div>
-    <br/>
 
     <%--条件查询--%>
     <form id="search" action="/excel/List" method="post" class="breadcrumb form-search">
-        <div>
+        <div style="margin-top:8px;">
             <label>签署年度：</label><input id="contractSignYear" name="contractSignYear" type="text" maxlength="50" class="input-mini" />
             <label>项目编码：</label><input id="itemCoding" name="itemCoding" type="text" maxlength="50" class="input-mini" />
             <label>销售人员：</label><input id="salePerson" name="salePerson" type="text" maxlength="50" class="input-mini" />
-            <div style="margin-top:8px;">
-                &nbsp;&nbsp;&nbsp;&nbsp;<input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/>&nbsp;&nbsp;
-            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;<input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/>&nbsp;&nbsp;
         </div>
     </form>
 
