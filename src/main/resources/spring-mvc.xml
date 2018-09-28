@@ -20,6 +20,29 @@
     <mvc:resources mapping="/**/*.css" location="/static/"/>
     <mvc:resources mapping="/**/**/*.js" location="/static/"/>
     <mvc:resources mapping="/**/**/*.css" location="/static/"/>
+    <mvc:resources mapping="/**" location="/static/image/"/>
+
+    <!-- 处理器映射器HandlerMapping -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <!-- 处理器设配器HandlerAdapter -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <!-- 在实际开发中通常都需配置 mvc:annotation-driven标签,这个标签是开启注解 -->
+    <mvc:annotation-driven></mvc:annotation-driven>
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <!-- 多个拦截器，顺序执行 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.one.util.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->

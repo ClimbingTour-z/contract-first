@@ -11,6 +11,18 @@
 <head>
     <title>登陆页面</title>
     <meta name="decorator" content="blank"/>
+    <script>
+        // 判断是登录账号和密码是否为空
+        function check(){
+            var username = $("#username").val();
+            var password = $("#password").val();
+            if(username=="" || password==""){
+                $("#message").text("账号或密码不能为空！");
+                return false;
+            }
+            return true;
+        }
+    </script>
     <style type="text/css">
         html, body, table {
             background-color: #f5f5f5;
@@ -101,7 +113,8 @@
         }
 
         body {
-            background-image: url(/static/images/login_bg.jpg);
+
+            background-image: url(/static/images/back.jpg);
             background-repeat: no-repeat;
             background-position: center;
             background-attachment: fixed;
@@ -109,29 +122,7 @@
         }
     </style>
 
-    <%--<script type="text/javascript">--%>
-        <%--$(document).ready(function () {--%>
-            <%--$("#loginForm").validate({--%>
-                <%--rules: {--%>
-                    <%--validateCode: {remote: "/servlet/validateCodeServlet"}--%>
-                <%--},--%>
-                <%--messages: {--%>
-                    <%--username: {required: "请填写用户名."}, password: {required: "请填写密码."},--%>
-                    <%--validateCode: {remote: "验证码不正确.", required: "请填写验证码."}--%>
-                <%--},--%>
-                <%--errorLabelContainer: "#messageBox",--%>
-                <%--errorPlacement: function (error, element) {--%>
-                    <%--error.appendTo($("#loginError").parent());--%>
-                <%--}--%>
-            <%--});--%>
-            <%--$(window).resize();--%>
-        <%--});--%>
-        <%--// 如果在框架或在对话框中，则弹出提示并跳转到首页--%>
-        <%--if (self.frameElement && self.frameElement.tagName == "IFRAME" || $('#left').length > 0 || $('.jbox').length > 0) {--%>
-            <%--alert('未登录或登录超时。请重新登录，谢谢！');--%>
-            <%--top.location = "${pageContext.request.contextPath}";--%>
-        <%--}--%>
-    <%--</script>--%>
+
 </head>
 <body>
 <!--[if lte IE 6]><br/>
@@ -141,15 +132,15 @@
         Chrome、Firefox、Safari 等。</p></div><![endif]-->
 
 <div class="header">
-    <div id="messageBox" class="alert alert-error ${empty message ? 'hide' : ''}">
-        <%--<button data-dismiss="alert" class="close">×</button>--%>
-        <label id="loginError" class="error">${message}</label>
-    </div>
+        <font color="red">
+            <%-- 提示信息--%>
+            <span id="message">${msg}</span>
+        </font>
 </div>
 
 <h1 class="form-signin-heading">登陆页面</h1>
 
-<form id="loginForm" class="form-signin" action="/user/checkLogin" method="post">
+<form id="loginForm" class="form-signin" action="/user/checkLogin" method="post" onsubmit="return check()">
     <label class="input-label" for="username">用户名</label><br/>
     <input type="text" id="username" name="username" class="input-block-level required"/><br/>
     <label class="input-label" for="password">密码</label><br/>
@@ -159,9 +150,12 @@
     <%--<label for="rememberMe" title="下次不需要再登录"><input type="checkbox" id="rememberMe" name="rememberMe" ${rememberMe ? 'checked' : ''}/> 记住我（公共场所慎用）</label>--%>
 
 </form>
+
 <div class="footer">
     Copyright &copy; 2018 - Development By Da V1.0.0
 </div>
-<script src="/static/flash/zoom.min.js" type="text/javascript"></script>
+<%-- jquery 核心 JS 文件 --%>
+<script type="text/javascript" src="/static/jquery/jquery-1.12.4.min.js"></script>
+<%--<script src="/static/flash/zoom.min.js" type="text/javascript"></script>--%>
 </body>
 </html>

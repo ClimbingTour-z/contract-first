@@ -48,7 +48,14 @@
     </form>
 
     <div layout:fragment="content">
+        <c:if test="${empty compactList.list}">
+            <div class="alert alert-warning" role="alert">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true">
+                </span>没有查询到相关信息，请<a href="/excel/imExcel" type="button" class="btn btn-primary btn-sm">上传信息！</a>
+            </div>
+        </c:if>
         <%--合同详情表--%>
+        <c:if test="${!empty compactList.list}">
         <table id="compactTable" class="table table-striped table-bordered table-condensed">
             <tr>
                 <th>合同签署年度</th><th>项目编码</th><th>销售人员</th><th>项目名称</th>
@@ -87,6 +94,7 @@
                 </tr>
             </c:forEach>
         </table>
+        </c:if>
     </div>
 
     <!-- jquery 核心 JS 文件 -->

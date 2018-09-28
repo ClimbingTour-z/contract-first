@@ -78,7 +78,7 @@
     <li><a href="/excel/checkCA">合同总金额</a></li>
     <li><a href="/excel/checkRS">回款详情</a></li>
     <div class="outdiv">
-        <form action="/user/outLogin">
+        <form action="/user/logout">
             <input class="btn btn-large btn-primary" type="submit" value="退出登录" />&nbsp;&nbsp;
         </form>
     </div>

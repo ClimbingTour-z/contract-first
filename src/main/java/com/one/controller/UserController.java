@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("user")
-public class LoginController {
+public class UserController {
     @Autowired
     private UserService userServivce;
 
@@ -26,20 +26,22 @@ public class LoginController {
 
     //表单提交过来的路径
     @RequestMapping("/checkLogin")
-    public String checkLogin(User user,String username,String password, Model model){
+    public String checkLogin(User user,String username,String password, Model model,HttpSession session){
         //调用service方法
-        user = userServivce.checkLogin(username, password);
+        user =(User) userServivce.checkLogin(username, password);
         //若有user则添加到model里并且跳转到成功页面
         if(user != null){
-            model.addAttribute("user",user);
+            session.setAttribute("USER_SESSION", user);
+
             return "/excel/imExcel";
         }
+        model.addAttribute("msg","账号或者密码错误！");
         return "/sys/login";
     }
 
 
     //注销方法
-    @RequestMapping("/outLogin")
+    @RequestMapping("/logout")
     public String outLogin(HttpSession session){
         //通过session.invalidata()方法来注销当前的session
         session.invalidate();
