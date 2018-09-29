@@ -17,24 +17,39 @@
         #{invoiceAmount},#{unbilledAmount},#{receivableTotal})
     </insert>
 
-    <select id="findList" resultType="com.one.model.Compact">
+    <!-- SQL片段 ,达到重复利用的目的-->
+    <sql id="selectCompactListWhere">
+        <where>
+            <if test="contractSignYear != null and contractSignYear !=''">
+                AND contract_sign_year LIKE
+                CONCAT('%', #{contractSignYear}, '%')
+            </if>
+            <if test="itemCoding != null and itemCoding !=''">
+                AND item_coding LIKE
+                CONCAT('%', #{itemCoding}, '%')
+            </if>
+            <if test="salePerson != null and salePerson !=''">
+                AND sale_person LIKE
+                CONCAT('%', #{salePerson}, '%')
+            </if>
+        </where>
+    </sql>
+
+    <!--<select id="findList" resultType="com.one.model.Compact">-->
+    <select id="selectCompactList" resultType="com.one.model.Compact">
         SELECT
         *
         FROM compact
-        WHERE id !=""
-        <if test="contractSignYear != null and contractSignYear !=''">
-            AND contract_sign_year LIKE
-            CONCAT('%', #{contractSignYear}, '%')
+        <include refid="selectCompactListWhere"/>
+        ORDER BY contract_sign_year,sale_person DESC
+        <if test="start!=null and rows!=null">
+            limit #{start},#{rows}
         </if>
-        <if test="itemCoding != null and itemCoding !=''">
-            AND item_coding LIKE
-            CONCAT('%', #{itemCoding}, '%')
-        </if>
-        <if test="salePerson != null and salePerson !=''">
-            AND sale_person LIKE
-            CONCAT('%', #{salePerson}, '%')
-        </if>
-        ORDER BY contract_sign_year DESC
+    </select>
+
+    <select id="selectCompactListCount" parameterType="Compact" resultType="Integer">
+        select count(*) from compact
+        <include refid="selectCompactListWhere"/>
     </select>
 
     <delete id="delete">

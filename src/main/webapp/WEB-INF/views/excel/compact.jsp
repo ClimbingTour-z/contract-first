@@ -6,15 +6,22 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ita" uri="http://itheima.com/commons/"%>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName()
+            + ":" + request.getServerPort() + path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <!-- 这个是重点！！！jstl使用获取数据的前提-->
     <%@ page isELIgnored="false" %>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>合同视图</title>
@@ -47,15 +54,18 @@
         </div>
     </form>
 
-    <div layout:fragment="content">
-        <c:if test="${empty compactList.list}">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+        <c:if test="${empty page.rows}">
             <div class="alert alert-warning" role="alert">
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true">
                 </span>没有查询到相关信息，请<a href="/excel/imExcel" type="button" class="btn btn-primary btn-sm">上传信息！</a>
             </div>
         </c:if>
         <%--合同详情表--%>
-        <c:if test="${!empty compactList.list}">
+        <c:if test="${!empty page.rows}">
         <table id="compactTable" class="table table-striped table-bordered table-condensed">
             <tr>
                 <th>合同签署年度</th><th>项目编码</th><th>销售人员</th><th>项目名称</th>
@@ -65,7 +75,7 @@
                 <th>2018年回款金额</th><th>开票应收款</th><th>开票合计</th><th>未开票金额</th>
                 <th>回款合计</th><th>操作</th>
             </tr>
-            <c:forEach items="${compactList.list}" var="compact">
+            <c:forEach items="${page.rows}" var="compact">
                 <tr>
                     <td>${compact.contractSignYear}</td>
                     <td>${compact.itemCoding}</td>
@@ -93,10 +103,16 @@
                     </td>
                 </tr>
             </c:forEach>
-        </table>
-        </c:if>
-    </div>
 
+        </table>
+            <div class="col-md-12 text-right">
+                <ita:page url="${pageContext.request.contextPath }/excel/List"></ita:page>
+            </div>
+        </c:if>
+
+    </div>
+    </div>
+</div>
     <!-- jquery 核心 JS 文件 -->
     <script type="text/javascript" src="/static/jquery/jquery-1.12.4.min.js"></script>
     <!-- Bootstrap3.3.7 核心 JavaScript 文件 -->

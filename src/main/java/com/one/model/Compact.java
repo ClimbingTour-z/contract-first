@@ -24,20 +24,21 @@ public class Compact {
   private String invoiceAmount;
   private String unbilledAmount;
   private String receivableTotal;
-
-  private Page<Compact> page;
-
-  public Page<Compact> getPage() {
-    if (page == null){
-      page = new Page<Compact>();
-    }
-    return page;
-  }
-
-  public Page<Compact> setPage(Page<Compact> page) {
-    this.page = page;
-    return page;
-  }
+  private Integer start;            // 起始行
+  private Integer rows;             // 所取行数
+//  private Page<Compact> page;
+//
+//  public Page<Compact> getPage() {
+//    if (page == null){
+//      page = new Page<Compact>();
+//    }
+//    return page;
+//  }
+//
+//  public Page<Compact> setPage(Page<Compact> page) {
+//    this.page = page;
+//    return page;
+//  }
 
   public long getId() {
     return id;
@@ -234,4 +235,19 @@ public class Compact {
     this.receivableTotal = receivableTotal;
   }
 
+  public Integer getStart() {
+    return start;
+  }
+
+  public void setStart(Integer start) {
+    this.start = start;
+  }
+
+  public Integer getRows() {
+    return rows;
+  }
+
+  public void setRows(Integer rows) {
+    this.rows = rows;
+  }
 }

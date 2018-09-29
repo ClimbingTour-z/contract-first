@@ -1,7 +1,7 @@
 package com.one.controller;
 
 import com.one.model.Compact;
-import com.one.model.Page;
+import com.one.util.Page;
 import com.one.serivce.CompactService;
 import com.one.util.ImportExcelUtil;
 import com.one.util.VerifyExcelVersionUtil;
@@ -117,9 +117,10 @@ public class CompactController {
      * @return
      */
     @RequestMapping(value = "List")
-    public String list(Compact compact, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Page<Compact> compactList = compactService.findList(new Page<Compact>(request, response),compact);
-        model.addAttribute("compactList",compactList);
+    public String list(@RequestParam(defaultValue="1")Integer page,@RequestParam(defaultValue="10")Integer rows,Compact compact, HttpServletRequest request, HttpServletResponse response, Model model) {
+       // Page<Compact> compactList = compactService.findList(new Page<Compact>(request, response),compact);
+        Page<Compact> compactList = compactService.findList1(page,rows,compact);
+        model.addAttribute("page",compactList);
         //Page<Compact> pageList = compactService.findPage(new Page<Compact>(request, response), compact);
         //model.addAttribute("pageList", pageList);
         return "/excel/compact";
