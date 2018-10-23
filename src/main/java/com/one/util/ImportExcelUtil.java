@@ -8,11 +8,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -88,29 +86,35 @@ public class ImportExcelUtil {
      * @return
      */
     public List<Compact> getExcelInfo(String fileName, MultipartFile Mfile) {
+//
+//        //把spring文件上传的MultipartFile转换成CommonsMultipartFile类型
+//        CommonsMultipartFile cf = (CommonsMultipartFile) Mfile; //获取本地存储路径
+//        File file = new File("D:\\fileupload");
+//        //创建一个目录 （它的路径名由当前 File 对象指定，包括任一必须的父路径。）
+//        if (!file.exists()) file.mkdirs();
+//        //新建一个文件
+//        File file1 = new File("D:\\fileupload\\" + new Date().getTime() + ".xls");
+//        //将上传的文件写入新建的文件中
+//        try {
+//            cf.getFileItem().write(file1);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        //初始化输入流
+//        FileInputStream is = null;
+//        //根据新建的文件实例化输入流
+//        is = new FileInputStream(file1);
 
-        //把spring文件上传的MultipartFile转换成CommonsMultipartFile类型
-        CommonsMultipartFile cf = (CommonsMultipartFile) Mfile; //获取本地存储路径
-        File file = new File("D:\\fileupload");
-        //创建一个目录 （它的路径名由当前 File 对象指定，包括任一必须的父路径。）
-        if (!file.exists()) file.mkdirs();
-        //新建一个文件
-        File file1 = new File("D:\\fileupload\\" + new Date().getTime() + ".xls");
-        //将上传的文件写入新建的文件中
-        try {
-            cf.getFileItem().write(file1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
+        //初始化输入流
+        InputStream is = null;
         //初始化客户信息的集合
         List<Compact> compactList = new ArrayList<Compact>();
-        //初始化输入流
-        FileInputStream is = null;
+
         Workbook wb = null;
         try {
             //根据新建的文件实例化输入流
-            is = new FileInputStream(file1);
+            is = Mfile.getInputStream();
             //根据excel里面的内容读取客户信息
             //根据文件后缀名不同(xls和xlsx)获得不同的Workbook实现类对象
             if (fileName.endsWith("xls")) {
