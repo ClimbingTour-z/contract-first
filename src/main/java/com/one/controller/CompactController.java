@@ -1,10 +1,9 @@
 package com.one.controller;
 
 import com.one.model.Compact;
-import com.one.util.Page;
 import com.one.serivce.CompactService;
 import com.one.util.ImportExcelUtil;
-import com.one.util.VerifyExcelVersionUtil;
+import com.one.util.Page;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +75,7 @@ public class CompactController {
 
         //进一步判断文件是否为空（即判断其大小是否为0或其名称是否为null）验证文件名是否合格
         long size=file.getSize();
-        if(name==null || ("").equals(name) && size==0 && !VerifyExcelVersionUtil.validateExcel(name)){
+        if(name==null || ("").equals(name) && size==0 && !ImportExcelUtil.validateExcel(name)){
             Msg ="文件格式不正确！请使用.xls或.xlsx后缀文档。";
             request.getSession().setAttribute("msg",Msg);
             return "/excel/imExcel";
@@ -96,7 +95,6 @@ public class CompactController {
                 //这里可以做添加数据库的功能
                 // System.out.println("第一个值："+customer.getCustomer1()+"\t第二个值："+customer.getCustomer2()+"\t第三个值："+customer.getCustomer3());
                 compactService.save(compact);
-                System.out.print(compact);
             }
             Msg ="批量导入EXCEL成功！";
             request.getSession().setAttribute("msg",Msg);
