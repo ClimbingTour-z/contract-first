@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 @Controller
@@ -150,4 +150,50 @@ public class CompactController {
         deleteMessage(redirectAttributes, "删除值班信息成功");
         return "redirect:/excel/List";
     }
+
+
+    /**
+     * 下载Excel模板
+     * @param
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/download")
+    public String download( HttpServletRequest request,
+                           HttpServletResponse response) {
+        System.out.println("控制台输出：下载模板");
+        String fileName = "muban";
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("multipart/form-data");
+        response.setHeader("Content-Disposition", "attachment;fileName="+ fileName +".xlsx");
+        try {
+            /*String path = Thread.currentThread().getContextClassLoader()
+                    .getResource("").getPath()
+                    + "download";//这个download目录建立在classes下的
+            */
+            String path=this.getClass().getClassLoader().getResource("/upload/muban.xlsx").getPath();
+            InputStream inputStream = new FileInputStream(new File(path));
+
+            OutputStream os = response.getOutputStream();
+            byte[] b = new byte[2048];
+            int length;
+            while ((length = inputStream.read(b)) > 0) {
+                os.write(b, 0, length);
+            }
+
+            // 这里主要关闭。
+            os.close();
+
+            inputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //  返回值要注意，要不然就出现下面这句错误！
+        //java+getOutputStream() has already been called for this response
+        return null;
+    }
+
 }

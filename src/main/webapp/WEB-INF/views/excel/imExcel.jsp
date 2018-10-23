@@ -29,18 +29,17 @@
     <script type="text/javascript" src="/static/jquery/jquery-1.12.4.min.js"></script>
 
     <style type="text/css">
-        ul
-        {
+        ul {
             list-style: none;
             height: 42px;
             position: relative;
         }
-        ul li
-        {
+
+        ul li {
             float: left;
         }
-        .outdiv
-        {
+
+        .outdiv {
             float: right;
             position: relative;
             top: 50%;
@@ -60,12 +59,12 @@
             }
         }
 
-        $(document).ready(function() {
-            var msg = "";
+        $(document).ready(function () {
+            var msg = null;
             if ($("#importMsg").text() != null) {
                 msg = $("#importMsg").text();
             }
-            if (msg != "") {
+            if (msg!=null && !msg.equals("")) {
                 alert(msg);
             }
         });
@@ -79,22 +78,27 @@
     <li><a href="/excel/checkRS">回款详情</a></li>
     <div class="outdiv">
         <form action="/user/logout">
-            <input class="btn btn-large btn-primary" type="submit" value="退出登录" />&nbsp;&nbsp;
+            <input class="btn btn-large btn-primary" type="submit" value="退出登录"/>&nbsp;&nbsp;
         </form>
     </div>
 </ul>
 
+<form action="/excel/download">
+    <div style="margin: 30px;">
+    <input id="excel_download" type="submit" value="下载Excel模板"/>
+    </div>
+</form>
 
-    <form action="/excel/uploadExcel" method="post" enctype="multipart/form-data" onsubmit="return check();">
-        <div style="margin: 30px;">
-            <input id="excel_file" type="file" name="filename" accept="xlsx" size="80"/>
-            <br/>
-            <input id="excel_button" type="submit" value="导入Excel"/>
-        </div>
-        <font id="importMsg" color="red"><%=importMsg%></font>
-        <input type="hidden"/>
-    </form>
-
+<form action="/excel/uploadExcel" method="post" enctype="multipart/form-data" onsubmit="return check();">
+    <div style="margin: 30px;">
+        <input id="excel_file" type="file" name="filename" accept="xlsx" size="80"/>
+        <br/>
+        <input id="excel_button" type="submit" value="导入Excel"/>
+    </div>
+    <font id="importMsg" color="red"><%=importMsg%>
+    </font>
+    <input type="hidden"/>
+</form>
 
 
 <!-- Bootstrap3.3.7 核心 JavaScript 文件 -->

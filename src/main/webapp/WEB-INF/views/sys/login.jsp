@@ -134,7 +134,7 @@
 <div class="header">
         <font color="red">
             <%-- 提示信息--%>
-            <span id="message">${msg}</span>
+            <span id="message">${msg1}</span>
         </font>
 </div>
 
